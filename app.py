@@ -1,14 +1,22 @@
 import openai  # pip install openai
 import urllib.request 
 import time
+import os
 
+def resource_path(relative_path):
+    try:
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMessageBox
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.setWindowIcon(QtGui.QIcon("icon.png")) 
+        MainWindow.setWindowIcon(QtGui.QIcon(resource_path("icon.png"))) 
         MainWindow.resize(910, 562)
         MainWindow.setStyleSheet("background-color: rgb(29, 29, 29);\n"
 "selection-background-color: rgb(85, 170, 255);\n"
@@ -52,7 +60,7 @@ class Ui_MainWindow(object):
         self.imageWindow.setStyleSheet("border-radius:20px;\n"
 "background-color: rgb(255, 255, 255);")
         self.imageWindow.setText("")
-        self.imageWindow.setPixmap(QtGui.QPixmap("default.png"))
+        self.imageWindow.setPixmap(QtGui.QPixmap(resource_path("default.png")))
         self.imageWindow.setScaledContents(True)
         self.imageWindow.setObjectName("imageWindow")
 
