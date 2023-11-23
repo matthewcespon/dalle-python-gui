@@ -4,6 +4,8 @@
 
 Python app coded in Python using OpenAI API and PyQt5, via QtDesigner for GUI
 
+Download in > [Releases](https://github.com/matthewcespon/dalle-python-gui/releases/tag/latest)
+
 
 ![Screenshot 2023-10-14 061552](https://github.com/matthewcespon/dalle-python-gui/assets/98528639/1ebcd8b3-b595-456a-87b3-355dae2ec270)
 
