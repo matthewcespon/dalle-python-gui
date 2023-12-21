@@ -12,7 +12,7 @@ Download in > [Releases](https://github.com/matthewcespon/dalle-python-gui/relea
 
 ![Screenshot 2023-10-14 061732](https://github.com/matthewcespon/dalle-python-gui/assets/98528639/ba0710df-c853-4c00-95af-4792f2d79697)
 
-# features
+# Features
 - Allows user to enter API key from their OpenAI account
 - Allows user to enter prompt and generate image based on prompt
 - Allows a certain style applied to prompt, 9 unique art styles
@@ -23,18 +23,22 @@ Download in > [Releases](https://github.com/matthewcespon/dalle-python-gui/relea
 - Valid API check
 - Loading Bar
 
-# getting started
-**Prerquisites**
+# Getting started
+**Requirements**
 
 - Must have Python installed
 - Must have OpenAI account with credits
 - Must have PyQt5 and openai module installed for python
 
 
-[Get API KEY](https://platform.openai.com/account/api-keys)
+[Get API KEY](https://platform.openai.com/api-keys)
 
+![Alt text](image.png)
+
+Save somewhere safe, you will need it to use the app.
+
+Run the following command to install the required packages 👇
 
 ```
-pip install PyQt5
-pip install openai
+pip install -r requirements.txt
 ```

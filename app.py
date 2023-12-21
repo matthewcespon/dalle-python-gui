@@ -1,4 +1,4 @@
-import openai  # pip install openai
+from openai import OpenAI, APIConnectionError
 import urllib.request 
 import time
 import os
@@ -124,7 +124,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "AI Image Generator 1.0"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "AI Image Generator 1.1"))
         self.heroText.setText(_translate("MainWindow", "AI Image Generator"))
         self.generateButton.setText(_translate("MainWindow", "Generate"))
         self.generateButton.clicked.connect(lambda:self.generate())
@@ -150,11 +150,12 @@ class Ui_MainWindow(object):
         dialog.exec_()
 
         # shows api error message if api key is invalid or no credits remaining
-    def apiError(self):
+    def apiError(self, e):
         apiDialog = QMessageBox(MainWindow)
         apiDialog.setWindowTitle("Error!")
         apiDialog.setText("Invalid API or no credits remaining!")
         apiDialog.setStyleSheet("background-color: rgb(255, 255, 255);")
+        print(e)
         apiDialog.exec_()
 
     # progress bar
@@ -166,6 +167,7 @@ class Ui_MainWindow(object):
     # generate image
     def generate(self):
         api_key = self.apiField.text()
+        client = OpenAI(api_key=api_key)
         prompt = self.promptField.text()
         combo_text = self.comboBox.currentText()
         if len(api_key) == 0 or len(prompt) == 0: # check if all fields are filled
@@ -173,28 +175,23 @@ class Ui_MainWindow(object):
                 
         else: 
                 self.progBar()
-                # print(api_key)
-                # print(prompt)
-                # print(combo_text)
-                openai.api_key = api_key
                 user_prompt = str(prompt + " in the style of " + combo_text)
                 print(user_prompt)
                 try:
-                        response = openai.Image.create(
-                                prompt=user_prompt,
-                                n=1,
-                                size="1024x1024"
-                        )
-                        image_url = response['data'][0]['url']
+                        response = client.images.generate(prompt=user_prompt,
+                        n=1,
+                        size="1024x1024")
+                        image_url = response.data[0].url
                         print(image_url)
                         file_name = "image.png"
                         urllib.request.urlretrieve(image_url, file_name)
                         self.imageWindow.setPixmap(QtGui.QPixmap("image.png"))
-                except openai.error.AuthenticationError:
-                        self.apiError()
+                except APIConnectionError as e:
+                        self.apiError(e)
 
 if __name__ == "__main__":
     import sys
+    global client
     app = QtWidgets.QApplication(sys.argv)
     app.setStyle("Fusion")
     MainWindow = QtWidgets.QMainWindow()
