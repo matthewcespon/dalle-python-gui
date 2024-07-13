@@ -92,7 +92,7 @@ class Ui_MainWindow(object):
         self.getApiLink.setAlignment(QtCore.Qt.AlignCenter)
         self.getApiLink.setObjectName("getApiLink")
 
-   
+
         # drop down list
         self.comboBox = QtWidgets.QComboBox(self.centralwidget)
         self.comboBox.setGeometry(QtCore.QRect(20, 280, 271, 31))
